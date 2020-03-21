@@ -28,14 +28,23 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class = "">
-                        <a href="#">Welcome User</a>
+                        {% if request.user.username %}
+                            <a href="{% url 'users:show_profile' %}">Welcome {{request.user.username}}</a>
+                        {% else %}
+                            <a href="#">Not logged in</a>
+                        {% endif %}
                     </li>
                     <li class = "">
-                       <a href="#">Add review</a>
+                       {% if request.user.username %}
+                            <a href="#">Add review</a>
+                        {% endif %}
                     </li>
                     <li class = "">
-                        <a href="{% url 'users:login' %}">Login/Sign Up</a>
-                    </li>
+                        {% if request.user.username %}
+                            <a href="{% url 'users:logout' %}">Logout</a>
+                        {% else %}
+                            <a href="{% url 'users:login' %}">Login/Sign Up</a>
+                        {% endif %}</li>
                 </ul>
             </div>
         </div>

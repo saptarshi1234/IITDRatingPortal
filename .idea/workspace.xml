@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d70f06ea-b3a1-4d73-843c-3a4171dd168d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/form_template.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/registration/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/registration/signIn_form.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/account_activation_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/tokens.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
