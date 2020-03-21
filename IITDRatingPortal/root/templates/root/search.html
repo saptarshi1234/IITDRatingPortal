@@ -1,0 +1,31 @@
+{% extends 'root/base.html' %}
+{% block body %}
+
+<p>
+{{prof_match}}
+{{course_match}}
+{{user_match}}
+</p>
+<br>
+<h2>Search Results</h2>
+<h3>Professors:</h3>
+<ul>
+    {% for prof in prof_match %}
+        <li><a href="{% url 'professors:detail' prof.id %}"> {{ prof.name }} </a></li>
+    {% endfor %}
+</ul>
+
+<h3>Courses:</h3>
+<ul>
+    {% for course in course_match %}
+        <li><a href="{% url 'courses:detail' course.id %}"> {{ course.name }} </a></li>
+    {% endfor %}
+</ul>
+
+<h3>Users:</h3>
+<ul>
+    {% for user in user_match %}
+        <li><a href=""> {{ user.username }} </a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

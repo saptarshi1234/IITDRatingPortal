@@ -7,9 +7,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        p{font-size:30px;}
-        h1{font-size:60px;}
-        h2{font-size:60px;}
+        p{font-size:25px;}
+        h1{font-size:50px;}
+        h2{font-size:50px;}
     </style>
 </head>
 <body >
@@ -56,6 +56,12 @@
                             <a href="{% url 'users:login' %}">Login/Sign Up</a>
                         {% endif %}</li>
                 </ul>
+                <form class="navbar-form navbar-right" role="search" method="get" action="{% url 'root:search' %}">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="query" value="">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
             </div>
         </div>
     </nav>
