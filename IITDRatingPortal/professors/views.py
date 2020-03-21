@@ -47,6 +47,14 @@ def upvote(request, pk):
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
+def downvote(request, pk):
+    rating = Prof_Rating.objects.get(id=pk)
+    rating.liked_by.remove(request.user)
+    rating.professor.respect_points -= 1
+    rating.professor.save()
+    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+    # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
+
 
 def delete_rating(request, pk):
     review = Prof_Rating.objects.get(id=pk)
