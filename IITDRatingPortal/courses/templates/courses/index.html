@@ -1,0 +1,8 @@
+{% extends 'root/base.html' %}
+{% block body %}
+<ul>
+    {% for course in all_courses %}
+        <li><a href="{% url 'courses:detail' course.id %}"> {{ course.name }} </a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

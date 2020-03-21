@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -37,3 +37,21 @@ class ProfRatingCreate(CreateView):
 class ProfRatingDelete(DeleteView):
     model = Prof_Rating
     success_url = reverse_lazy('professors:index')
+
+
+def upvote(request, pk):
+    rating = Prof_Rating.objects.get(id=pk)
+    rating.liked_by.add(request.user)
+    rating.professor.respect_points += 1
+    rating.professor.save()
+    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+    # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
+
+
+def delete_rating(request, pk):
+    review = Prof_Rating.objects.get(id=pk)
+    review.professor.respect_points -= 1
+    review.delete()
+    review.professor.save()
+    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
+

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'courses.apps.CoursesConfig',
     'professors.apps.ProfessorsConfig',
     'users.apps.UsersConfig',
     'root.apps.RootConfig',

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        p{font-size:30px;}
+        h1{font-size:60px;}
+        h2{font-size:60px;}
+    </style>
 </head>
 <body >
     <nav class="navbar navbar-default">
@@ -23,7 +28,7 @@
                         <a href="{% url 'professors:index' %}">Professors</a>
                     </li>
                     <li class = "">
-                        <a href="#">Courses</a>
+                        <a href="{% url 'courses:index' %}">Courses</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -36,7 +41,12 @@
                     </li>
                     <li class = "">
                        {% if request.user.username %}
-                            <a href="{% url 'professors:add_rating' %}">Add review</a>
+                            <a href="{% url 'courses:add_rating' %}">Add Course review</a>
+                        {% endif %}
+                    </li>
+                    <li class = "">
+                       {% if request.user.username %}
+                            <a href="{% url 'professors:add_rating' %}">Add Professor review</a>
                         {% endif %}
                     </li>
                     <li class = "">
