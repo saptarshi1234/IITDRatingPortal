@@ -4,12 +4,20 @@
     <list default="true" id="d70f06ea-b3a1-4d73-843c-3a4171dd168d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/templates/courses/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/templates/courses/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0002_delete_course.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0003_prof_rating_liked_by.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0004_professor_respect_points.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/templates/professors/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/templates/professors/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

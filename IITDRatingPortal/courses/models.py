@@ -22,6 +22,7 @@ class Course_Rating(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     user = models.ForeignKey(User,default=None,on_delete=models.CASCADE)
     postAnonymously = models.BooleanField(default=False)
+    liked_by = models.ManyToManyField(User, related_name='all_liked_courserating')
 
     def __str__(self):
         return str(self.comment) + '-' + str(self.stars)

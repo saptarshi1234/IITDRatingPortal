@@ -42,24 +42,24 @@ class ProfRatingDelete(DeleteView):
 def upvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
     rating.liked_by.add(request.user)
-    rating.professor.respect_points += 1
-    rating.professor.save()
+    rating.user.userprofile.respect_points += 1
+    rating.user.userprofile.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 def downvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
     rating.liked_by.remove(request.user)
-    rating.professor.respect_points -= 1
-    rating.professor.save()
+    rating.user.userprofile.respect_points -= 1
+    rating.user.userprofile.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 
 def delete_rating(request, pk):
     review = Prof_Rating.objects.get(id=pk)
-    review.professor.respect_points -= 1
+    review.user.userprofile.respect_points -= 1
     review.delete()
-    review.professor.save()
+    review.user.userprofile.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
 

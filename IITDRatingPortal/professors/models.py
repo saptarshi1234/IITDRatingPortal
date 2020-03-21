@@ -9,7 +9,7 @@ class Professor(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     department = models.CharField(max_length=100)
-    respect_points = models.IntegerField(default=0)
+    #respect_points = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.name) + '-' + str(self.age) + '-' + str(self.department)
@@ -24,7 +24,7 @@ class Prof_Rating(models.Model):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     user = models.ForeignKey(User,default=None,on_delete=models.CASCADE,)
     postAnonymously = models.BooleanField(default=False)
-    liked_by = models.ManyToManyField(User,related_name='all_liked_rating')
+    liked_by = models.ManyToManyField(User,related_name='all_liked_profrating')
 
     def __str__(self):
         return str(self.comment) + '-' + str(self.stars)

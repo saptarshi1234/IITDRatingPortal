@@ -37,3 +37,29 @@ class CourseRatingCreate(CreateView):
 class CourseRatingDelete(DeleteView):
     model = Course_Rating
     success_url = reverse_lazy('courses:index')
+
+
+def upvote(request, pk):
+    rating = Course_Rating.objects.get(id=pk)
+    rating.liked_by.add(request.user)
+    rating.user.userprofile.respect_points += 1
+    rating.user.userprofile.save()
+    return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
+    # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
+
+
+def downvote(request, pk):
+    rating = Course_Rating.objects.get(id=pk)
+    rating.liked_by.remove(request.user)
+    rating.user.userprofile.respect_points -= 1
+    rating.user.userprofile.save()
+    return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
+    # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
+
+
+def delete_rating(request, pk):
+    review = Course_Rating.objects.get(id=pk)
+    review.user.userprofile.respect_points -= 1
+    review.delete()
+    review.user.userprofile.save()
+    return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': review.course.pk}))

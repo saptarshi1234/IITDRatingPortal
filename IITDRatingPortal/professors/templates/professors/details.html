@@ -12,11 +12,12 @@
 <h2>Reviews:</h2>
 
 {% for rating in prof.prof_rating_set.all %}
-    <p> user:
+    <p> author:
         {% if rating.postAnonymously and not request.user.is_superuser %}
             Anonymous
         {% else %}
             {{ rating.user.username }}
+            (respect points): {{rating.user.userprofile.respect_points}}
         {% endif %}<br>
 
         comment: {{ rating.comment }}
