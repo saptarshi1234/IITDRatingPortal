@@ -1,0 +1,19 @@
+{% extends 'root/base.html' %}
+{% block body %}
+<div style="margin-left:20px">
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br>
+        {% include 'root/form_template.html' %}
+
+        <div class="form-group">
+            <div class="col-sm-offset-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    </form>
+    {% if error %}
+        <p class="error">{{error}}</p>
+    {% endif %}
+</div>
+{% endblock %}

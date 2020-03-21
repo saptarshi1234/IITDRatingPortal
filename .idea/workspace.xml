@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d70f06ea-b3a1-4d73-843c-3a4171dd168d" name="Default Changelist" comment="" />
+    <list default="true" id="d70f06ea-b3a1-4d73-843c-3a4171dd168d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/form_template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/registration/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/registration/signIn_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/account_activation_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/tokens.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/base.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +30,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ZRCOInqluaYYwBHIG7aB62BKjd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -24,6 +43,7 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SvnConfiguration">
@@ -38,5 +58,11 @@
       <updated>1584792486013</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup" timestamp="1584794298876">
+      <screen x="0" y="27" width="1920" height="975" />
+    </state>
+    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup/0.27.1920.975@0.27.1920.975" timestamp="1584794298876" />
   </component>
 </project>
