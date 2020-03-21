@@ -20,7 +20,7 @@
                         <a href="/home">Home</a>
                     </li>
                     <li class = "">
-                        <a href="#">Professors</a>
+                        <a href="{% url 'professors:index' %}">Professors</a>
                     </li>
                     <li class = "">
                         <a href="#">Courses</a>
@@ -36,7 +36,7 @@
                     </li>
                     <li class = "">
                        {% if request.user.username %}
-                            <a href="#">Add review</a>
+                            <a href="{% url 'professors:add_rating' %}">Add review</a>
                         {% endif %}
                     </li>
                     <li class = "">
