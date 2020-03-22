@@ -2,22 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d70f06ea-b3a1-4d73-843c-3a4171dd168d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0002_course_rating_datetime.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0003_course_rating_reported.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0002_prof_rating_reported.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0002_course_rating_liked_by.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/templates/courses/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/templates/courses/details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0002_delete_course.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0003_prof_rating_liked_by.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0004_professor_respect_points.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/templates/professors/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/templates/professors/details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,13 +42,16 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZRCOInqluaYYwBHIG7aB62BKjd" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -61,14 +70,25 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="65" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1584823724678">
+    <state x="557" y="309" width="796" height="411" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584868764009">
       <screen x="0" y="27" width="1920" height="975" />
     </state>
-    <state x="65" y="342" key="com.intellij.ide.util.TipDialog/0.27.1920.975@0.27.1920.975" timestamp="1584823724678" />
-    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup" timestamp="1584794298876">
+    <state x="557" y="309" width="796" height="411" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1920.975@0.27.1920.975" timestamp="1584868764009" />
+    <state x="65" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1584881402279">
       <screen x="0" y="27" width="1920" height="975" />
     </state>
-    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup/0.27.1920.975@0.27.1920.975" timestamp="1584794298876" />
+    <state x="65" y="342" key="com.intellij.ide.util.TipDialog/0.27.1920.975@0.27.1920.975" timestamp="1584881402279" />
+    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup" timestamp="1584878701519">
+      <screen x="0" y="27" width="1920" height="975" />
+    </state>
+    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup/0.27.1920.975@0.27.1920.975" timestamp="1584878701519" />
+    <state x="663" y="422" width="593" height="185" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1584870506625">
+      <screen x="0" y="27" width="1920" height="975" />
+    </state>
+    <state x="663" y="422" width="593" height="185" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.27.1920.975@0.27.1920.975" timestamp="1584870506625" />
   </component>
 </project>

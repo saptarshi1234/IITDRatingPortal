@@ -42,24 +42,34 @@ class ProfRatingDelete(DeleteView):
 def upvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
     rating.liked_by.add(request.user)
-    rating.user.userprofile.respect_points += 1
-    rating.user.userprofile.save()
+    if not rating.postAnonymously:
+        rating.user.userprofile.respect_points += 1
+    rating.user.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 def downvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
     rating.liked_by.remove(request.user)
-    rating.user.userprofile.respect_points -= 1
-    rating.user.userprofile.save()
+    if not rating.postAnonymously:
+        rating.user.userprofile.respect_points -= 1
+    rating.user.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 
 def delete_rating(request, pk):
     review = Prof_Rating.objects.get(id=pk)
-    review.user.userprofile.respect_points -= 1
+    if not review.postAnonymously:
+        review.user.userprofile.respect_points -= 1
     review.delete()
-    review.user.userprofile.save()
+    review.user.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
 
+def report_rating(request, pk):
+    review = Prof_Rating.objects.get(id=pk)
+    review.reported = True
+    review.last_reported_time = datetime.now()
+    review.save()
+    #return render(request,'professors/detail',{})
+    return HttpResponseRedirect(reverse('professors:detail',kwargs={'pk': review.professor.pk}))

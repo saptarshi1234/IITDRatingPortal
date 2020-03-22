@@ -10,12 +10,23 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import View
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
+from courses.models import *
+from professors.models import *
+
 
 from .forms import UserForm
 
 
 def show_user_profile(request):
-    return render(request, 'users/profile.html', {})
+    recent_activity = []
+    all_rating_user = list(request.user.prof_rating_set.all()) + list(request.user.course_rating_set.all())
+    all_rating_user.sort(reverse=True,key=lambda x:x.datetime)
+
+    context = {'all_rating':all_rating_user}
+    if request.user.is_superuser:
+        reported_reviews = list(Prof_Rating.objects.all().filter(reported=True)) + list(Course_Rating.objects.all().filter(reported=True))
+        context['reported']=reported_reviews
+    return render(request, 'users/profile.html', context)
 
 
 class UserFormView(View):
@@ -35,8 +46,8 @@ class UserFormView(View):
             confirm_pass = form.cleaned_data['confirm_pass']
             to_email = form.cleaned_data['email']
 
-            if not to_email.endswith('iitd.ac.in'):
-                return render(request, self.template_name, {'form': form, 'error': 'please enter iitd email'})
+            # if not to_email.endswith('iitd.ac.in'):
+            #     return render(request, self.template_name, {'form': form, 'error': 'please enter iitd email'})
 
             if password != confirm_pass:
                 return render(request, self.template_name, {'form': form, 'error': 'passwords do not match'})

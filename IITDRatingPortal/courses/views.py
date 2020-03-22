@@ -42,8 +42,9 @@ class CourseRatingDelete(DeleteView):
 def upvote(request, pk):
     rating = Course_Rating.objects.get(id=pk)
     rating.liked_by.add(request.user)
-    rating.user.userprofile.respect_points += 1
-    rating.user.userprofile.save()
+    if not rating.postAnonymously:
+        rating.user.userprofile.respect_points += 1
+    rating.user.save()
     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
@@ -51,15 +52,25 @@ def upvote(request, pk):
 def downvote(request, pk):
     rating = Course_Rating.objects.get(id=pk)
     rating.liked_by.remove(request.user)
-    rating.user.userprofile.respect_points -= 1
-    rating.user.userprofile.save()
+    if not rating.postAnonymously:
+        rating.user.userprofile.respect_points -= 1
+    rating.user.save()
     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 
 def delete_rating(request, pk):
     review = Course_Rating.objects.get(id=pk)
-    review.user.userprofile.respect_points -= 1
+    if not review.postAnonymously:
+        review.user.userprofile.respect_points -= 1
     review.delete()
-    review.user.userprofile.save()
+    review.user.save()
+    return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': review.course.pk}))
+
+
+def report_rating(request, pk):
+    review = Course_Rating.objects.get(id=pk)
+    review.reported = True
+    review.last_reported_time = datetime.now()
+    review.save()
     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': review.course.pk}))
