@@ -6,7 +6,7 @@ from django.views import generic
 from .forms import ReviewPostForm
 from .models import *
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
+from users.models import *
 
 # Create your views here.
 class IndexView(generic.ListView):
@@ -64,6 +64,7 @@ def delete_rating(request, pk):
         review.user.userprofile.respect_points -= 1
     review.delete()
     review.user.save()
+    warning = UserWarning.objects.create(user=review.user, message='U r being warned', time=datetime.now())
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
 
 def report_rating(request, pk):

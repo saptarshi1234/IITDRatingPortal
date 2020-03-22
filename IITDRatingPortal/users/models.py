@@ -5,7 +5,13 @@ from django.db import models
 # Create your models here.
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.timezone import now
 
+
+class UserWarning(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    time = models.DateTimeField(default=now,blank=True)
+    message = models.CharField(max_length=250)
 
 class UserProfile(models.Model):
     respect_points = models.IntegerField(default=0)

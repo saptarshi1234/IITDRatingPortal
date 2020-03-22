@@ -1,5 +1,6 @@
 {% extends 'root/base.html' %}
 {% block body %}
+
 <h1>Hello {{request.user.username}}</h1>
 <p>This is your profile page</p>
 
@@ -9,8 +10,8 @@
 </p>
 
 
-<h2>{% if user.is_superuser %}All{% else %}Your {% endif %}Recent Activity</h2>
-<h4>{{ all_rating }}</h4>
+<h2>{% if user.is_superuser %}All {% else %}Your {% endif %}Recent Activity</h2>
+<br>
 <ul>
     {% for rating in all_rating %}
         <li>
@@ -34,8 +35,8 @@
 <br>
 {% if user.is_superuser %}
 
-<h3>Reported Reviews</h3>
-<h4>{{ reported }}</h4>
+<h2>Reported Reviews</h2>
+<br>
 <ul>
 {% for rating in reported %}
     <li>
@@ -55,7 +56,7 @@
 </ul>
 <br><br>
 
-{% if banned_users|length > 0 %}<h3>Banned Users</h3>{% endif %}
+{% if banned_users|length > 0 %}<h2>Banned Users</h2>{% endif %}
 <ul>
     {% for user_i in banned_users %}
     <li>
@@ -69,6 +70,20 @@
     </li>
     {% endfor %}
 </ul>
-
 {% endif %}
+
+{% if user.is_active and not user.is_superuser %}
+{% if warnings|length > 0 %}<h2>Warnings</h2>{% endif %}
+<ul>
+    {% for warning in warnings %}
+    <li>
+        <p>
+            {{warning.message}}
+            {{warning.time}} UTC
+        </p>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% endblock %}

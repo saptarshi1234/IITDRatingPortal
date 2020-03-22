@@ -65,6 +65,7 @@ def delete_rating(request, pk):
         review.user.userprofile.respect_points -= 1
     review.delete()
     review.user.save()
+    warning = UserWarning.objects.create(user=review.user, message='U r being warned', time=datetime.now())
     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': review.course.pk}))
 
 

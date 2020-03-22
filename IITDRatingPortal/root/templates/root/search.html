@@ -18,7 +18,7 @@
 {% if user_match|length > 0 %}<h3>Users:</h3>{% endif %}
 <ul>
     {% for user in user_match %}
-        <li><a href=""> {{ user.username }} </a></li>
+        <li> {{ user.username }} </li>
     {% endfor %}
 </ul>
 

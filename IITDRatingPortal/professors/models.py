@@ -36,7 +36,7 @@ class Prof_Rating(models.Model):
         return str(self.comment) + '-' + str(self.stars)
 
     def get_absolute_url(self):
-        return reverse('professors:detail',kwargs={'pk':self.professor.pk})
+        return reverse('professors:detail',kwargs={'pk':self.professor.pk})+'#'+ str(self.id)
 
     def get_class_name(self):
         return 'prof_rating'
