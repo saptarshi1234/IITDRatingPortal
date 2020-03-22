@@ -2,27 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d70f06ea-b3a1-4d73-843c-3a4171dd168d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0002_course_rating_datetime.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0003_course_rating_reported.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0002_prof_rating_reported.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/account_ban.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/account_ban_removal.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/IITDRatingPortal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0002_course_rating_liked_by.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0002_course_rating_datetime.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0003_course_rating_reported.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0004_course_rating_last_reported_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/migrations/0005_auto_20200322_1247.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/templates/courses/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/templates/courses/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/courses/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/courses/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0002_prof_rating_reported.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/migrations/0002_userprofile_is_banned.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0003_prof_rating_last_reported_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/migrations/0004_auto_20200322_1248.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/templates/professors/details.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/templates/professors/details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/professors/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/professors/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/root/templates/root/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/root/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/root/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/registration/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/templates/users/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IITDRatingPortal/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/IITDRatingPortal/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,14 +82,14 @@
       <screen x="0" y="27" width="1920" height="975" />
     </state>
     <state x="557" y="309" width="796" height="411" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1920.975@0.27.1920.975" timestamp="1584868764009" />
-    <state x="65" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1584881402279">
+    <state x="65" y="342" key="com.intellij.ide.util.TipDialog" timestamp="1584896701339">
       <screen x="0" y="27" width="1920" height="975" />
     </state>
-    <state x="65" y="342" key="com.intellij.ide.util.TipDialog/0.27.1920.975@0.27.1920.975" timestamp="1584881402279" />
-    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup" timestamp="1584878701519">
+    <state x="65" y="342" key="com.intellij.ide.util.TipDialog/0.27.1920.975@0.27.1920.975" timestamp="1584896701339" />
+    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup" timestamp="1584902004911">
       <screen x="0" y="27" width="1920" height="975" />
     </state>
-    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup/0.27.1920.975@0.27.1920.975" timestamp="1584878701519" />
+    <state x="1072" y="239" width="734" height="678" key="search.everywhere.popup/0.27.1920.975@0.27.1920.975" timestamp="1584902004911" />
     <state x="663" y="422" width="593" height="185" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1584870506625">
       <screen x="0" y="27" width="1920" height="975" />
     </state>

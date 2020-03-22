@@ -2,9 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import View
@@ -18,14 +19,23 @@ from .forms import UserForm
 
 
 def show_user_profile(request):
-    recent_activity = []
-    all_rating_user = list(request.user.prof_rating_set.all()) + list(request.user.course_rating_set.all())
-    all_rating_user.sort(reverse=True,key=lambda x:x.datetime)
 
-    context = {'all_rating':all_rating_user}
+    context = dict()
     if request.user.is_superuser:
+        all_rating_all_author = list(Prof_Rating.objects.all()) + list(Course_Rating.objects.all())
+        all_rating_all_author.sort(reverse=True, key=lambda x: x.datetime)
+        context['all_rating'] = all_rating_all_author
+
         reported_reviews = list(Prof_Rating.objects.all().filter(reported=True)) + list(Course_Rating.objects.all().filter(reported=True))
+        reported_reviews.sort(reverse=True,key=lambda x:x.last_reported_time)
         context['reported']=reported_reviews
+
+        context['banned_users']= list(filter(lambda x:x.userprofile.is_banned,list(User.objects.all())))
+    else:
+        all_rating_user = list(request.user.prof_rating_set.all()) + list(request.user.course_rating_set.all())
+        all_rating_user.sort(reverse=True, key=lambda x: x.datetime)
+        context['all_rating']=all_rating_user
+
     return render(request, 'users/profile.html', context)
 
 
@@ -92,3 +102,56 @@ def activate(request, uidb64, token):
         return redirect('users:show_profile')
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+def ban_user(request,user):
+    user.is_active=False
+    user.userprofile.is_banned=True
+
+    #send email
+    current_site = get_current_site(request)
+    mail_subject = 'Ban from site'
+    message = render_to_string('users/account_ban.html', {
+        'user': user,
+        'domain': current_site.domain,
+    })
+    to_email = user.email
+    email = EmailMessage(
+        mail_subject, message, to=[to_email]
+    )
+    print(message)
+    email.send()
+    user.save()
+
+
+def ban_user_prof_redirect(request,rating_id):
+    rating = Prof_Rating.objects.get(pk=rating_id)
+    ban_user(request,rating.user)
+    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+
+
+
+def ban_user_course_redirect(request,rating_id):
+    rating = Course_Rating.objects.get(pk=rating_id)
+    ban_user(request,rating.user)
+    return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
+
+
+def remove_ban(request,user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = True
+    user.userprofile.is_banned = False
+    current_site = get_current_site(request)
+    mail_subject = 'Removal of Ban from site'
+    message = render_to_string('users/account_ban_removal.html', {
+        'user': user,
+        'domain': current_site.domain,
+    })
+    to_email = user.email
+    email = EmailMessage(
+        mail_subject, message, to=[to_email]
+    )
+    print(message)
+    email.send()
+    user.save()
+    return HttpResponseRedirect(reverse('users:show_profile'))

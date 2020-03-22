@@ -28,7 +28,7 @@ class Course_Rating(models.Model):
     postAnonymously = models.BooleanField(default=False)
     liked_by = models.ManyToManyField(User, related_name='all_liked_courserating')
     reported = models.BooleanField(default=False)
-    #last_reported_time = models.DateTimeField(default=now)
+    last_reported_time = models.DateTimeField(default=now,blank=True)
 
     def __str__(self):
         return str(self.comment) + '-' + str(self.stars)
