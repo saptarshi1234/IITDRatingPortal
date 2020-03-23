@@ -15,7 +15,7 @@ from courses.models import *
 from professors.models import *
 from datetime import *
 
-from .forms import UserForm
+from .forms import UserForm,BanForm
 
 
 def show_user_profile(request):
@@ -108,36 +108,55 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
-def ban_user(request, user):
-    user.is_active = False
-    user.userprofile.is_banned = True
+def ban_user(request, user_id):
+    user=User.objects.get(pk=user_id)
+    if request.POST:
+        form = BanForm(request.POST)
+        if form.is_valid():
+            days=form.cleaned_data['ban_days']
+            print(days)
 
-    # send email
-    current_site = get_current_site(request)
-    mail_subject = 'Ban from site'
-    message = render_to_string('users/account_ban.html', {
-        'user': user,
-        'domain': current_site.domain,
-    })
-    to_email = user.email
-    email = EmailMessage(
-        mail_subject, message, to=[to_email]
-    )
-    print(message)
-    email.send()
-    user.save()
+            user.is_active = False
+            user.userprofile.is_banned = True
+            user.userprofile.banned_on=datetime.now()
+            user.userprofile.ban_days=int(days)
+            if days == '0':
+                msg='indefinitely'
+            else:
+                msg='for '+days+' days'
 
+            # send email
+            current_site = get_current_site(request)
+            mail_subject = 'Ban from site'
+            message = render_to_string('users/account_ban.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'days':msg
+            })
+            to_email = user.email
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            print(message)
+            # email.send()
+            user.save()
+            return HttpResponseRedirect(reverse('users:show_profile'))
 
-def ban_user_prof_redirect(request, rating_id):
-    rating = Prof_Rating.objects.get(pk=rating_id)
-    ban_user(request, rating.user)
-    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+    else:
+        form=BanForm(None)
+        return render(request, 'users/ban_form.html', {'form': form})
 
-
-def ban_user_course_redirect(request, rating_id):
-    rating = Course_Rating.objects.get(pk=rating_id)
-    ban_user(request, rating.user)
-    return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
+#
+# def ban_user_prof_redirect(request, rating_id):
+#     rating = Prof_Rating.objects.get(pk=rating_id)
+#     ban_user(request, rating.user)
+#     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+#
+#
+# def ban_user_course_redirect(request, rating_id):
+#     rating = Course_Rating.objects.get(pk=rating_id)
+#     ban_user(request, rating.user)
+#     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
 
 
 def remove_ban(request, user_id):
@@ -155,7 +174,7 @@ def remove_ban(request, user_id):
         mail_subject, message, to=[to_email]
     )
     print(message)
-    email.send()
+    # email.send()
     user.save()
     return HttpResponseRedirect(reverse('users:show_profile'))
 
@@ -164,3 +183,4 @@ def warn(request, user_id):
     user = User.objects.get(id=user_id)
     warning = UserWarning.objects.create(user=user, message='U r being warned', time=datetime.now())
     return HttpResponseRedirect(reverse('users:show_profile'))
+

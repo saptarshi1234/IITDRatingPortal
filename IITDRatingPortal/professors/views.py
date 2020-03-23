@@ -7,8 +7,17 @@ from .forms import *
 from .models import *
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from users.models import *
+from background_task import background
 
 # Create your views here.
+# from .urls import back
+
+@background(schedule=1)
+def back():
+    print('hello')
+
+
+
 class IndexView(generic.ListView):
     template_name = 'professors/index.html'
     context_object_name = 'all_profs'
@@ -49,6 +58,7 @@ class ProfRatingDelete(DeleteView):
 
 
 def upvote(request, pk):
+    back(repeat=10, repeat_until=None)
     rating = Prof_Rating.objects.get(id=pk)
     rating.liked_by.add(request.user)
     if not rating.postAnonymously:

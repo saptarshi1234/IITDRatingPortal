@@ -11,3 +11,11 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+
+
+class BanForm(forms.Form):
+    ban_days = forms.ChoiceField(choices=[
+        ('15','15 days'),
+        ('30','30 days'),
+        ('0','indefinitely')
+    ])
