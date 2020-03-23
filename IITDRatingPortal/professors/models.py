@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from users.models import *
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
@@ -21,7 +22,7 @@ class Professor(models.Model):
         return reverse('professors:detail',kwargs={'pk':self.pk})
 
 
-class Prof_Rating(models.Model):
+class Prof_Rating(Rating):
     datetime = models.DateTimeField(default=datetime.now)
     comment = models.CharField(max_length=1000)
     stars = models.IntegerField(default=1,validators=[MaxValueValidator(5), MinValueValidator(1)])

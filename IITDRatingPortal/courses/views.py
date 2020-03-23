@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import ReviewPostForm
+from .forms import *
 from .models import *
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
@@ -21,6 +21,17 @@ class DetailView(generic.DetailView):
     model = Course
     template_name = 'courses/details.html'
     context_object_name = 'course'
+
+
+class CourseCreate(CreateView):
+    model = Course
+    fields = ('name', 'department', 'profs_teaching')
+
+
+class CourseUpdate(UpdateView):
+    model = Course
+    fields = ('name', 'department', 'profs_teaching')    # form_class = CourseCreateForm
+
 
 
 class CourseRatingCreate(CreateView):
@@ -61,11 +72,12 @@ def downvote(request, pk):
 
 def delete_rating(request, pk):
     review = Course_Rating.objects.get(id=pk)
-    if not review.postAnonymously:
-        review.user.userprofile.respect_points -= 1
+    # if not review.postAnonymously:
+    #     review.user.userprofile.respect_points -= 1
     review.delete()
     review.user.save()
-    warning = UserWarning.objects.create(user=review.user, message='U r being warned', time=datetime.now())
+    warning_message='U r being warned for creating offensive post on course '+ review.course.name + '\nComment : '+review.comment +'\n Such behaviour shall not be tolerated and u may be banned for further acts'
+    warning = UserWarning.objects.create(user=review.user, message=warning_message, time=datetime.now())
     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': review.course.pk}))
 
 

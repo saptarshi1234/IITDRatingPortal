@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from users.models import *
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
@@ -7,10 +8,13 @@ from django.urls import reverse
 from datetime import datetime
 from django.utils.timezone import now
 
+from professors.models import Professor
+
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
     department = models.CharField(max_length=100)
+    profs_teaching = models.ManyToManyField(Professor,related_name='all_courses_taught')
 
     def __str__(self):
         return str(self.name) + '-' + str(self.department)
@@ -19,7 +23,7 @@ class Course(models.Model):
         return reverse('courses:detail',kwargs={'pk':self.pk})
 
 
-class Course_Rating(models.Model):
+class Course_Rating(Rating):
     datetime = models.DateTimeField(default=datetime.now)
     comment = models.CharField(max_length=1000)
     stars = models.IntegerField(default=1,validators=[MaxValueValidator(5), MinValueValidator(1)])
