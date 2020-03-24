@@ -1,3 +1,7 @@
+import _thread
+import threading
+import time
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -7,15 +11,6 @@ from .forms import *
 from .models import *
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from users.models import *
-from background_task import background
-
-# Create your views here.
-# from .urls import back
-
-@background(schedule=1)
-def back():
-    print('hello')
-
 
 
 class IndexView(generic.ListView):
@@ -30,6 +25,7 @@ class DetailView(generic.DetailView):
     model = Professor
     template_name = 'professors/details.html'
     context_object_name = 'prof'
+
 
 class ProfCreate(CreateView):
     model = Professor
@@ -58,7 +54,6 @@ class ProfRatingDelete(DeleteView):
 
 
 def upvote(request, pk):
-    back(repeat=10, repeat_until=None)
     rating = Prof_Rating.objects.get(id=pk)
     rating.liked_by.add(request.user)
     if not rating.postAnonymously:
@@ -66,6 +61,7 @@ def upvote(request, pk):
     rating.user.save()
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
+
 
 def downvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
@@ -83,14 +79,16 @@ def delete_rating(request, pk):
     #     review.user.userprofile.respect_points -= 1
     review.delete()
     review.user.save()
-    warning_message='U r being warned for creating offensive post on professor '+ review.professor.name + 'Comment : '+review.comment +'\n Such behaviour shall not be tolerated and u may be banned for further acts'
+    warning_message = 'U r being warned for creating offensive post on professor ' + review.professor.name + 'Comment : ' + review.comment + '\n Such behaviour shall not be tolerated and u may be banned for further acts'
     warning = UserWarning.objects.create(user=review.user, message=warning_message, time=datetime.now())
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
+
 
 def report_rating(request, pk):
     review = Prof_Rating.objects.get(id=pk)
     review.reported = True
     review.last_reported_time = datetime.now()
     review.save()
-    #return render(request,'professors/detail',{})
-    return HttpResponseRedirect(reverse('professors:detail',kwargs={'pk': review.professor.pk}))
+    # return render(request,'professors/detail',{})
+    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
+

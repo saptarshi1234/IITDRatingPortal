@@ -26,6 +26,7 @@ class UserProfile(models.Model):
     is_banned = models.BooleanField(default=False)
     ban_days=models.IntegerField(default=0)
     banned_on=models.DateTimeField(default=now,blank=True)
+    indefinite_ban=models.BooleanField(default=False)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

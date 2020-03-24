@@ -1,3 +1,5 @@
+import _thread
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -14,6 +16,7 @@ from django.core.mail import EmailMessage
 from courses.models import *
 from professors.models import *
 from datetime import *
+import time
 
 from .forms import UserForm,BanForm
 
@@ -122,6 +125,7 @@ def ban_user(request, user_id):
             user.userprofile.ban_days=int(days)
             if days == '0':
                 msg='indefinitely'
+                user.userprofile.indefinite_ban = True
             else:
                 msg='for '+days+' days'
 
@@ -184,3 +188,21 @@ def warn(request, user_id):
     warning = UserWarning.objects.create(user=user, message='U r being warned', time=datetime.now())
     return HttpResponseRedirect(reverse('users:show_profile'))
 
+
+def back():
+    while True:
+        for user in User.objects.all():
+            profile=user.userprofile
+            if user.userprofile.is_banned:
+                if not profile.indefinite_ban and datetime.now(timezone.utc) - profile.banned_on > timedelta(days=profile.ban_days):
+                    user.is_active=True
+                    profile.is_banned=False
+                    user.save()
+        time.sleep(3600)
+
+
+print('starting')
+try:
+    _thread.start_new_thread(back, ())
+except:
+    print('error')

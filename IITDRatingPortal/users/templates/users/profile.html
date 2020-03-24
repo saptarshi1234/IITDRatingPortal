@@ -64,7 +64,14 @@
             {{user_i.username}}&emsp;
             <a href="{% url 'users:remove_ban' user_i.id %}">
                 <img alt="remove ban" src="">
-            </a>
+            </a><br>
+            banned on: {{user_i.userprofile.banned_on}} UTC<br>
+            ban days:
+            {% if user_i.userprofile.indefinite_ban %}
+             indefinite
+            {% else %}{{user_i.userprofile.ban_days}}
+            {% endif %}
+
 
         </p>
     </li>
