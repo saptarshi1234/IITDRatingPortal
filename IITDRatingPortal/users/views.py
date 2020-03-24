@@ -18,7 +18,7 @@ from professors.models import *
 from datetime import *
 import time
 
-from .forms import UserForm,BanForm
+from .forms import UserForm, BanForm
 
 
 def show_user_profile(request):
@@ -40,8 +40,6 @@ def show_user_profile(request):
         context['all_rating'] = all_rating_user
 
         context['warnings'] = list(request.user.userwarning_set.all())
-
-
 
     return render(request, 'users/profile.html', context)
 
@@ -112,22 +110,22 @@ def activate(request, uidb64, token):
 
 
 def ban_user(request, user_id):
-    user=User.objects.get(pk=user_id)
+    user = User.objects.get(pk=user_id)
     if request.POST:
         form = BanForm(request.POST)
         if form.is_valid():
-            days=form.cleaned_data['ban_days']
+            days = form.cleaned_data['ban_days']
             print(days)
 
             user.is_active = False
             user.userprofile.is_banned = True
-            user.userprofile.banned_on=datetime.now()
-            user.userprofile.ban_days=int(days)
+            user.userprofile.banned_on = datetime.now()
+            user.userprofile.ban_days = int(days)
             if days == '0':
-                msg='indefinitely'
+                msg = 'indefinitely'
                 user.userprofile.indefinite_ban = True
             else:
-                msg='for '+days+' days'
+                msg = 'for ' + days + ' days'
 
             # send email
             current_site = get_current_site(request)
@@ -135,7 +133,7 @@ def ban_user(request, user_id):
             message = render_to_string('users/account_ban.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'days':msg
+                'days': msg
             })
             to_email = user.email
             email = EmailMessage(
@@ -147,8 +145,9 @@ def ban_user(request, user_id):
             return HttpResponseRedirect(reverse('users:show_profile'))
 
     else:
-        form=BanForm(None)
+        form = BanForm(None)
         return render(request, 'users/ban_form.html', {'form': form})
+
 
 #
 # def ban_user_prof_redirect(request, rating_id):
@@ -192,11 +191,12 @@ def warn(request, user_id):
 def back():
     while True:
         for user in User.objects.all():
-            profile=user.userprofile
+            profile = user.userprofile
             if user.userprofile.is_banned:
-                if not profile.indefinite_ban and datetime.now(timezone.utc) - profile.banned_on > timedelta(days=profile.ban_days):
-                    user.is_active=True
-                    profile.is_banned=False
+                if not profile.indefinite_ban and datetime.now(timezone.utc) - profile.banned_on > timedelta(
+                        days=profile.ban_days):
+                    user.is_active = True
+                    profile.is_banned = False
                     user.save()
         time.sleep(3600)
 
@@ -206,3 +206,26 @@ try:
     _thread.start_new_thread(back, ())
 except:
     print('error')
+
+from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from allauth.exceptions import ImmediateHttpResponse
+
+class MySocialAccountAdapter(DefaultSocialAccountAdapter):
+    def pre_social_login(self, request, sociallogin):
+        # user = sociallogin.account.user
+        # print(user, user.email)
+        print(dir(sociallogin.account))
+        if sociallogin.is_existing:
+            print('yes')
+        else:
+            print('no')
+            raise ImmediateHttpResponse(render(request,'users/login_error.html',))
+    # if user.id:
+    #     return
+    # try:
+    #     existing_user = User.objects.get(email=user.email)
+    # except Customer.DoesNotExist:
+    #     pass
+    # else:
+    #     user.userprofile.social.add(user.email)
+    # perform_login(request, customer, 'none')

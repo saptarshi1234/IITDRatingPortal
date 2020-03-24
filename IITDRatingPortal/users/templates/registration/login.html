@@ -1,5 +1,7 @@
 {% extends 'root/base.html' %}
 {% block body %}
+    <a href="/allauth/google/login">sign in with google</a>
+
 <div style="margin-left:20px">
     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -15,6 +17,6 @@
         <p class="error">{{error}}</p>
     {% endif %}
 
-    <a href="{% url 'users:sign_in' %}">no account... Sign Up now...</a>
+    <a href="{% url 'users:sign_in' %}">no account... Sign Up now...</a><br>
 </div>
 {% endblock %}

@@ -1,7 +1,8 @@
 {% extends 'root/base.html' %}
 {% block body %}
 
-<h1>Hello {{request.user.username}}</h1>
+<h1 style="display:inline">Hello {{request.user.username}}</h1>
+<a href="/allauth/social/connections" style="display:inline">(Social connections)</a>
 <p>This is your profile page</p>
 
 <p>

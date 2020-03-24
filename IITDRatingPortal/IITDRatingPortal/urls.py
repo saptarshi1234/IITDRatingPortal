@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^courses/',include('courses.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 
+    url(r'^allauth/', include('allauth.urls')),
 ]
