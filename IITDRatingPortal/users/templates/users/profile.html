@@ -72,8 +72,6 @@
              indefinite
             {% else %}{{user_i.userprofile.ban_days}}
             {% endif %}
-
-
         </p>
     </li>
     {% endfor %}
@@ -85,10 +83,7 @@
 <ul>
     {% for warning in warnings %}
     <li>
-        <p>
-            {{warning.message}}
-            {{warning.time}} UTC
-        </p>
+        <pre>{{warning.message}}</pre>
     </li>
     {% endfor %}
 </ul>

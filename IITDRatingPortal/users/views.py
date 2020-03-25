@@ -1,24 +1,17 @@
-import _thread
-
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from django.urls import reverse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import View
-from .tokens import account_activation_token
-from django.core.mail import EmailMessage
+
 from courses.models import *
 from professors.models import *
-from datetime import *
-import time
-
 from .forms import UserForm, BanForm
+from .tokens import account_activation_token
 
 
 def show_user_profile(request):
@@ -49,6 +42,7 @@ class UserFormView(View):
     template_name = 'registration/signIn_form.html'
 
     def get(self, request):
+        print(get_current_site(request).domain)
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
@@ -103,7 +97,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
+        login(request, user,backend='django.contrib.auth.backends.ModelBackend')
         return redirect('users:show_profile')
     else:
         return HttpResponse('Activation link is invalid!')
@@ -188,38 +182,38 @@ def warn(request, user_id):
     return HttpResponseRedirect(reverse('users:show_profile'))
 
 
-def back():
-    while True:
-        for user in User.objects.all():
-            profile = user.userprofile
-            if user.userprofile.is_banned:
-                if not profile.indefinite_ban and datetime.now(timezone.utc) - profile.banned_on > timedelta(
-                        days=profile.ban_days):
-                    user.is_active = True
-                    profile.is_banned = False
-                    user.save()
-        time.sleep(3600)
+# def back():
+#     while True:
+#         for user in User.objects.all():
+#             profile = user.userprofile
+#             if user.userprofile.is_banned:
+#                 if not profile.indefinite_ban and datetime.now(timezone.utc) - profile.banned_on > timedelta(
+#                         days=profile.ban_days):
+#                     user.is_active = True
+#                     profile.is_banned = False
+#                     user.save()
+#         time.sleep(3600)
+#
+#TODO run this after migrations complete
 
-
-print('starting')
-try:
-    _thread.start_new_thread(back, ())
-except:
-    print('error')
+# print('starting')
+# try:
+#     _thread.start_new_thread(back, ())
+# except:
+#     print('error')
 
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-from allauth.exceptions import ImmediateHttpResponse
+
 
 class MySocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
-        # user = sociallogin.account.user
-        # print(user, user.email)
         print(dir(sociallogin.account))
-        if sociallogin.is_existing:
+        print(request.user)
+        if sociallogin.is_existing or request.user.username:
             print('yes')
         else:
             print('no')
-            raise ImmediateHttpResponse(render(request,'users/login_error.html',))
+            # raise ImmediateHttpResponse(render(request,'users/login_error.html',))
     # if user.id:
     #     return
     # try:
@@ -229,3 +223,6 @@ class MySocialAccountAdapter(DefaultSocialAccountAdapter):
     # else:
     #     user.userprofile.social.add(user.email)
     # perform_login(request, customer, 'none')
+
+
+#TODO add review do some preprocessing of forms

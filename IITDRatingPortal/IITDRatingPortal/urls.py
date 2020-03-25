@@ -17,9 +17,6 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.urls import path
 
-# from users.views import back
-
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('',include('root.urls')),
@@ -30,3 +27,4 @@ urlpatterns = [
 
     url(r'^allauth/', include('allauth.urls')),
 ]
+#TODO add navbar to allauth page

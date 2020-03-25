@@ -5,5 +5,5 @@ from .models import *
 class ReviewPostForm(forms.ModelForm):
     class Meta:
         model = Course_Rating
-        fields = ('comment', 'stars', 'course','postAnonymously')
+        fields = ('comment', 'stars','postAnonymously')
 

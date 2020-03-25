@@ -34,7 +34,7 @@ class Prof_Rating(Rating):
     last_reported_time = models.DateTimeField(default=now,blank=True)
 
     def __str__(self):
-        return str(self.comment) + '-' + str(self.stars)
+        return str(self.comment) + '-' + str(self.stars)+ str(self.professor.name)
 
     def get_absolute_url(self):
         return reverse('professors:detail',kwargs={'pk':self.professor.pk})+'#'+ str(self.id)

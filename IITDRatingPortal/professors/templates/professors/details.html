@@ -29,7 +29,7 @@
 
 <h2 style="display:inline">Reviews:</h2>
 {% if request.user.is_active %}
-<a href="{% url 'professors:add_rating' %}"><p style="display:inline">(add review)</p></a>
+<a href="{% url 'professors:add_rating' prof.id %}"><p style="display:inline">(add review)</p></a>
 {% endif %}
 <br><br>
 {% for rating in prof.prof_rating_set.all %}

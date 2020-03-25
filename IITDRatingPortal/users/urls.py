@@ -11,9 +11,6 @@ urlpatterns = [
         views.activate, name='activate'),
 
     url(r'(?P<user_id>[0-9]+)/ban_user/$', views.ban_user, name='ban_user'),
-
-    # url(r'(?P<rating_id>[0-9]+)/ban_for_prof_review$',views.ban_user_prof_redirect,name='ban_user_prof_redirect'),
-    # url(r'(?P<rating_id>[0-9]+)/ban_for_course_review$',views.ban_user_course_redirect,name='ban_user_prof_redirect'),
     url(r'(?P<user_id>[0-9]+)/remove_ban$',views.remove_ban,name='remove_ban'),
 
     path('accounts/', include('django.contrib.auth.urls')),

@@ -41,6 +41,7 @@ class CourseRatingCreate(CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
+        obj.course=Course.objects.get(pk=self.kwargs.get('pk'))
         obj.save()
         return HttpResponseRedirect(obj.get_absolute_url())
 

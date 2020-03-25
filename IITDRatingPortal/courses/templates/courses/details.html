@@ -22,7 +22,7 @@
 
 <h2 style="display:inline">Reviews:</h2>
 {% if request.user.is_active %}
-<a href="{% url 'courses:add_rating' %}"><p style="display:inline">(add review)</p></a>
+<a href="{% url 'courses:add_rating' course.id %}"><p style="display:inline">(add review)</p></a>
 {% endif %}
 <br><br>
 {% for rating in course.course_rating_set.all %}

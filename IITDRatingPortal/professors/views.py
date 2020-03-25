@@ -44,6 +44,9 @@ class ProfRatingCreate(CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
+        obj.professor = Professor.objects.get(pk=self.kwargs.get('pk'))
+        print(self.kwargs.get('pk'))
+        print(obj.professor)
         obj.save()
         return HttpResponseRedirect(obj.get_absolute_url())
 
@@ -79,7 +82,7 @@ def delete_rating(request, pk):
     #     review.user.userprofile.respect_points -= 1
     review.delete()
     review.user.save()
-    warning_message = 'U r being warned for creating offensive post on professor ' + review.professor.name + 'Comment : ' + review.comment + '\n Such behaviour shall not be tolerated and u may be banned for further acts'
+    warning_message = 'U r being warned for creating offensive post on professor ' + review.professor.name + '\nComment : ' + review.comment + '\n Such behaviour shall not be tolerated and u may be banned for further acts'
     warning = UserWarning.objects.create(user=review.user, message=warning_message, time=datetime.now())
     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
 
