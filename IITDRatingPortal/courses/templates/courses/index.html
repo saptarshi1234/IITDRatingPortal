@@ -2,11 +2,11 @@
 {% block body %}
 <ul>
     {% for course in all_courses %}
-        <li><a href="{% url 'courses:detail' course.id %}"> {{ course.name }} </a></li>
+        <li><a style="font-size:18px" href="{% url 'courses:detail' course.id %}"> {{ course.name }} </a></li>
     {% endfor %}
 </ul>
 
 {% if request.user.is_superuser %}
-<a href="{% url 'courses:create_course' %}"><p>Add Course</p></a>
+<a href="{% url 'courses:create_course' %}"><p style="font-size:25px;color:red">Add Course</p></a>
 {% endif %}
 {% endblock %}

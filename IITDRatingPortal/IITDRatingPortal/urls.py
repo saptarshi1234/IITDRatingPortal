@@ -13,8 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import _thread
+import time
+from datetime import datetime, timezone, timedelta
+
 from django.conf.urls import url,include
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.urls import path
 
 urlpatterns = [
@@ -27,4 +32,27 @@ urlpatterns = [
 
     url(r'^allauth/', include('allauth.urls')),
 ]
-#TODO add navbar to allauth page
+
+
+def back():
+    while True:
+        for user in User.objects.all():
+            profile = user.userprofile
+            if user.userprofile.is_banned:
+                # print(datetime.now(timezone.utc) - profile.banned_on - timedelta(seconds=profile.ban_days))
+                # print(datetime.now(timezone.utc) - profile.banned_on > timedelta(seconds=profile.ban_days))
+                # print(profile.indefinite_ban)
+                if (not profile.indefinite_ban) and datetime.now(timezone.utc) - profile.banned_on > timedelta(
+                        days=profile.ban_days):
+                    user.is_active = True
+                    profile.is_banned = False
+                    user.save()
+                    # print('done')
+        time.sleep(10000)
+
+
+print('starting')
+try:
+    _thread.start_new_thread(back, ())
+except:
+    print('error')

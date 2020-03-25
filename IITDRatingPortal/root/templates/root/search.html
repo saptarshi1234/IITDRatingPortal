@@ -22,7 +22,7 @@
     {% endfor %}
 </ul>
 
-{% if user_match|length == 0 and course_match|length == 0 and user_match|length == 0 %}
+{% if user_match|length == 0 and course_match|length == 0 and prof_match|length == 0 %}
     <p>Sorry ... no users professors or courses matched your query </p>
 {% endif %}
 {% endblock %}

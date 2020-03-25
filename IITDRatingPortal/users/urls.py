@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'(?P<user_id>[0-9]+)/ban_user/$', views.ban_user, name='ban_user'),
     url(r'(?P<user_id>[0-9]+)/remove_ban$',views.remove_ban,name='remove_ban'),
 
+
     path('accounts/', include('django.contrib.auth.urls')),
 
 ]

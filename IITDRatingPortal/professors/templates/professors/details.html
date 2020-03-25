@@ -1,9 +1,7 @@
 {% extends 'root/base.html' %}
 {% block body %}
 {% load static %}
-{% if alert_flag %}
-    <script>alert("Some Message.")</script>
-{% endif %}
+
 <h1 style="display:inline">Professor {{prof.name}}</h1>
 
 {% if request.user.is_superuser %}
@@ -32,6 +30,7 @@
 <a href="{% url 'professors:add_rating' prof.id %}"><p style="display:inline">(add review)</p></a>
 {% endif %}
 <br><br>
+{% if prof.prof_rating_set.all|length == 0 %}<p style="font-size:16px">No reviews till now..<br> Be the first to add one</p>{% endif %}
 {% for rating in prof.prof_rating_set.all %}
 <div id="{{rating.id}}">
     <p> author:
@@ -45,7 +44,7 @@
         <br>
         comment: {{ rating.comment }}
         &emsp;
-        {% if user.username %}
+        {% if not user.is_anonymous %}
         {% if not user in rating.liked_by.all %}
             <a href="{% url 'professors:upvote' rating.id %}" >
                 <img height="40px" width="40px" src="{% static 'upvote.jpg' %}" alt="upvote">
@@ -63,20 +62,20 @@
             </a>&emsp;
             {% if not rating.user.userprofile.is_banned %}
                 <a href="{% url 'users:ban_user' rating.user.id%}">
-                    <img  height="40px" width="40px" alt="ban user" src="">
+                    ban {{rating.user.username}}
                 </a>
 
             {% else %}
                 <p>user banned</p>
             {% endif %}
 
-        {% elif user.username %}
+        {% elif not user.is_anonymous %}
             <a onclick="alert('reporting to admin')" href="{% url 'professors:report_rating' rating.id %}">
-                <img  height="20px" width="20px" alt="report" src="">
+                report author
             </a>
         {% endif %}
 
-        <!-- TODO add report user -->
+
 
         <br>
         stars :

@@ -25,6 +25,7 @@
 <a href="{% url 'courses:add_rating' course.id %}"><p style="display:inline">(add review)</p></a>
 {% endif %}
 <br><br>
+{% if course.course_rating_set.all|length == 0 %}<p style="font-size:16px">No reviews till now..<br> Be the first to add one</p>{% endif %}
 {% for rating in course.course_rating_set.all %}
 <div id="{{rating.id}}">
     <p> author:
@@ -41,7 +42,7 @@
 
         comment: {{ rating.comment }}
         &emsp;
-        {% if user.username %}
+        {% if not user.is_anonymous %}
         {% if not user in rating.liked_by.all %}
             <a href="{% url 'courses:upvote' rating.id %}" >
                 <img height="40px" width="40px" src="{% static 'upvote.jpg' %}" alt="upvote">
@@ -60,14 +61,14 @@
             </a>&emsp;
             {% if not rating.user.userprofile.is_banned %}
                 <a href="{% url 'users:ban_user' rating.user.id %}">
-                    <img  height="40px" width="40px" alt="ban user" src="">
+                    ban {{rating.user}}
                 </a>
             {% else %}
                 user banned
             {% endif %}
         {% else %}
             <a onclick="alert('reporting to admin')" href="{% url 'courses:report_rating' rating.id %}">
-                <img  height="20px" width="20px" alt="report" src="">
+                report
             </a>
         {% endif %}<br>
         stars :

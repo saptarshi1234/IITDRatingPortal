@@ -1,16 +1,10 @@
-import _thread
-import threading
-import time
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import *
 from .models import *
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from users.models import *
 
 
 class IndexView(generic.ListView):
@@ -58,21 +52,27 @@ class ProfRatingDelete(DeleteView):
 
 def upvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
+    if request.user in rating.liked_by.all():
+        return HttpResponse('a user can upvote a post only once')
     rating.liked_by.add(request.user)
     if not rating.postAnonymously:
         rating.user.userprofile.respect_points += 1
     rating.user.save()
-    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+    rating.save()
+    return HttpResponseRedirect(rating.get_absolute_url())
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 
 def downvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
+    if request.user not in rating.liked_by.all():
+        return HttpResponse('a user can only remove his upvotes not downvote')
     rating.liked_by.remove(request.user)
     if not rating.postAnonymously:
         rating.user.userprofile.respect_points -= 1
     rating.user.save()
-    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
+    rating.save()
+    return HttpResponseRedirect(rating.get_absolute_url())
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
 
@@ -84,7 +84,7 @@ def delete_rating(request, pk):
     review.user.save()
     warning_message = 'U r being warned for creating offensive post on professor ' + review.professor.name + '\nComment : ' + review.comment + '\n Such behaviour shall not be tolerated and u may be banned for further acts'
     warning = UserWarning.objects.create(user=review.user, message=warning_message, time=datetime.now())
-    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
+    return HttpResponseRedirect(review.professor.get_absolute_url())
 
 
 def report_rating(request, pk):
@@ -92,6 +92,11 @@ def report_rating(request, pk):
     review.reported = True
     review.last_reported_time = datetime.now()
     review.save()
-    # return render(request,'professors/detail',{})
-    return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': review.professor.pk}))
+    return HttpResponseRedirect(review.get_absolute_url())
 
+
+def unmark_rating(request,pk):
+    review = Prof_Rating.objects.get(id=pk)
+    review.reported = False
+    review.save()
+    return HttpResponseRedirect(reverse('users:show_profile'))

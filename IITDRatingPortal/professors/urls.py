@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'prof_rating/(?P<pk>[0-9]+)/delete_prof_review$', views.delete_rating, name='delete_rating'),
     url(r'prof_rating(?P<pk>[0-9]+)/report_prof_review$', views.report_rating, name='report_rating'),
     url(r'(?P<pk>[0-9]+)/add_review$', views.ProfRatingCreate.as_view(), name='add_rating'),
+    url(r'prof_rating/(?P<pk>[0-9]+)/unmark_rating$', views.unmark_rating, name='unmark_rating'),
 
     url(r'create_prof$', views.ProfCreate.as_view(), name='create_prof'),
     url(r'(?P<pk>[0-9]+)/update_prof$', views.ProfUpdate.as_view(), name='update_prof'),

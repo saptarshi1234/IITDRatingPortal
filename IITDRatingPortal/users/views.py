@@ -119,6 +119,7 @@ def ban_user(request, user_id):
                 msg = 'indefinitely'
                 user.userprofile.indefinite_ban = True
             else:
+                user.userprofile.indefinite_ban = False
                 msg = 'for ' + days + ' days'
 
             # send email
@@ -141,19 +142,6 @@ def ban_user(request, user_id):
     else:
         form = BanForm(None)
         return render(request, 'users/ban_form.html', {'form': form})
-
-
-#
-# def ban_user_prof_redirect(request, rating_id):
-#     rating = Prof_Rating.objects.get(pk=rating_id)
-#     ban_user(request, rating.user)
-#     return HttpResponseRedirect(reverse('professors:detail', kwargs={'pk': rating.professor.pk}))
-#
-#
-# def ban_user_course_redirect(request, rating_id):
-#     rating = Course_Rating.objects.get(pk=rating_id)
-#     ban_user(request, rating.user)
-#     return HttpResponseRedirect(reverse('courses:detail', kwargs={'pk': rating.course.pk}))
 
 
 def remove_ban(request, user_id):
@@ -182,47 +170,16 @@ def warn(request, user_id):
     return HttpResponseRedirect(reverse('users:show_profile'))
 
 
-# def back():
-#     while True:
-#         for user in User.objects.all():
-#             profile = user.userprofile
-#             if user.userprofile.is_banned:
-#                 if not profile.indefinite_ban and datetime.now(timezone.utc) - profile.banned_on > timedelta(
-#                         days=profile.ban_days):
-#                     user.is_active = True
-#                     profile.is_banned = False
-#                     user.save()
-#         time.sleep(3600)
-#
-#TODO run this after migrations complete
-
-# print('starting')
-# try:
-#     _thread.start_new_thread(back, ())
-# except:
-#     print('error')
-
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-
+from allauth.exceptions import *
 
 class MySocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
         print(dir(sociallogin.account))
         print(request.user)
-        if sociallogin.is_existing or request.user.username:
-            print('yes')
-        else:
-            print('no')
-            # raise ImmediateHttpResponse(render(request,'users/login_error.html',))
-    # if user.id:
-    #     return
-    # try:
-    #     existing_user = User.objects.get(email=user.email)
-    # except Customer.DoesNotExist:
-    #     pass
-    # else:
-    #     user.userprofile.social.add(user.email)
-    # perform_login(request, customer, 'none')
+        if not sociallogin.is_existing and request.user.is_anonymous:
+            raise ImmediateHttpResponse(render(request,'users/login_error.html',))
 
 
-#TODO add review do some preprocessing of forms
+
+

@@ -37,34 +37,37 @@
 {% if user.is_superuser %}
 
 <h2>Reported Reviews</h2>
+{% if reported|length == 0 %}<p>no reviews have been reported as of now</p>{% endif %}
 <br>
 <ul>
 {% for rating in reported %}
     <li>
         <p>
-<!--                TODO add button to remove report  -->
             <a style="font-size:20px;" href="{{ rating.get_absolute_url }}"><img style='height:30px;width:30px;' src="data:image/png;base64,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"></a>
-            Author : {{ rating.user }}<br>
+            Author : {{ rating.user }} &emsp;&emsp;
+
             {% if rating.get_class_name == 'prof_rating' %}
-                professor {{rating.professor.name}} &emsp; <br>comment ---- {{rating.comment}}
+                <a href="{% url 'professors:unmark_rating' rating.id %}">(unmark reported)</a>
+                <br>professor {{rating.professor.name}} &emsp; <br>comment ---- {{rating.comment}}
             {% else %}
-                course {{rating.course.name}}  &emsp; <br>comment ----- {{rating.comment}}
+                <a href="{% url 'courses:unmark_rating' rating.id %}">(unmark reported)</a>
+                <br>course {{rating.course.name}}  &emsp; <br>comment ----- {{rating.comment}}
             {% endif %}<br>
             reported_last : {{ rating.last_reported_time }} UTC
         </p>
     </li>
 {% endfor %}
 </ul>
-<br><br>
-
-{% if banned_users|length > 0 %}<h2>Banned Users</h2>{% endif %}
+<br>
+<h2>Banned Users</h2>
+{% if banned_users|length == 0 %}<p>no users are banned as of now</p>{% endif %}
 <ul>
     {% for user_i in banned_users %}
     <li>
         <p>
             {{user_i.username}}&emsp;
             <a href="{% url 'users:remove_ban' user_i.id %}">
-                <img alt="remove ban" src="">
+                remove ban
             </a><br>
             banned on: {{user_i.userprofile.banned_on}} UTC<br>
             ban days:
