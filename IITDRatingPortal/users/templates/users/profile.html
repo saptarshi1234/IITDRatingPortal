@@ -12,6 +12,7 @@
 
 
 <h2>{% if user.is_superuser %}All {% else %}Your {% endif %}Recent Activity</h2>
+{% if all_rating|length == 0 %}<p>no recent activity</p>{% endif %}
 <br>
 <ul>
     {% for rating in all_rating %}
@@ -25,7 +26,8 @@
                     professor {{rating.professor.name}} &emsp; <br>comment ---- {{rating.comment}}
                 {% else %}
                     course {{rating.course.name}}  &emsp; <br>comment ----- {{rating.comment}}
-                {% endif %}
+                {% endif %}<br>
+                stars : {{rating.stars}}
                 <br>time:{{rating.datetime}} UTC
             </p>
         </li>

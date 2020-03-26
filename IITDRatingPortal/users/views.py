@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -42,7 +42,8 @@ class UserFormView(View):
     template_name = 'registration/signIn_form.html'
 
     def get(self, request):
-        print(get_current_site(request).domain)
+        logout(request)
+        print(get_current_site(request).domain,5)
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
@@ -55,14 +56,14 @@ class UserFormView(View):
             confirm_pass = form.cleaned_data['confirm_pass']
             to_email = form.cleaned_data['email']
 
-            # if not to_email.endswith('iitd.ac.in'):
-            #     return render(request, self.template_name, {'form': form, 'error': 'please enter iitd email'})
+            if not to_email.endswith('iitd.ac.in'):
+                return render(request, self.template_name, {'form': form, 'error': 'please enter iitd email'})
 
             if password != confirm_pass:
                 return render(request, self.template_name, {'form': form, 'error': 'passwords do not match'})
 
-            if to_email.split('@')[0] in [curr_user.email.split('@')[0] for curr_user in User.objects.all()]:
-                return render(request, self.template_name, {'form': form, 'error': 'email address already in use'})
+            # if to_email.split('@')[0] in [curr_user.email.split('@')[0] for curr_user in User.objects.all()]:
+            #     return render(request, self.template_name, {'form': form, 'error': 'email address already in use'})
             user.set_password(password)
 
             user.is_active = False
@@ -82,7 +83,7 @@ class UserFormView(View):
             )
             print(message)
             email.send()
-            return HttpResponse('Please confirm your email address to complete the registration')
+            return HttpResponse('<p>We have sent an email containing the activation link.<br> Please confirm your email address to complete the registration</p>')
 
         else:
             return render(request, self.template_name, {'form': form, 'error': 'incorrect data'})
