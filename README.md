@@ -17,7 +17,7 @@ There is a provision for an admin who monitors the site.
 The Admin can see the identity authors of all the reviews( even anonymous ones) and can delete the reviews that are offensive.
 A warning is sent to the author when a review is deleted.
 The Admin also has the power to ban users for repetitive offensive reviews.. for 15 days , 30 days or indefinitely.
-The users are automatically ' unbanned' after their spcified poriod
+The users are automatically ' unbanned' after their spcified period.
 All banned users are listed in the Admin's profile and they can be unbanned before their ban duration is over if the Admin deems 
 it necessary.
 
@@ -61,4 +61,10 @@ install the following packages preferably in a virtual environment
 3. six
 
 The results of pip freeze are given in the file /IITDRatingPortal/pip_freeze_results.txt
+
+## Note
+please run the server on 127.0.0.1:8000
+There are 6 pre-registered users:
+1. admin(superuser) pass=admin
+2. user{i} (regular user) pass=pass{i} for i=1,2,3,4,5
 
