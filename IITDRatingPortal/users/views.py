@@ -136,7 +136,7 @@ def ban_user(request, user_id):
                 mail_subject, message, to=[to_email]
             )
             print(message)
-            # email.send()
+            email.send()
             user.save()
             return HttpResponseRedirect(reverse('users:show_profile'))
 
@@ -160,7 +160,7 @@ def remove_ban(request, user_id):
         mail_subject, message, to=[to_email]
     )
     print(message)
-    # email.send()
+    email.send()
     user.save()
     return HttpResponseRedirect(reverse('users:show_profile'))
 
