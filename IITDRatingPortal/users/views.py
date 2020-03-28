@@ -62,8 +62,8 @@ class UserFormView(View):
             if password != confirm_pass:
                 return render(request, self.template_name, {'form': form, 'error': 'passwords do not match'})
 
-            # if to_email.split('@')[0] in [curr_user.email.split('@')[0] for curr_user in User.objects.all()]:
-            #     return render(request, self.template_name, {'form': form, 'error': 'email address already in use'})
+            if to_email.split('@')[0] in [curr_user.email.split('@')[0] for curr_user in User.objects.all()]:
+                return render(request, self.template_name, {'form': form, 'error': 'email address already in use'})
             user.set_password(password)
 
             user.is_active = False
