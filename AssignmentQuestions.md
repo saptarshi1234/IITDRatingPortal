@@ -95,27 +95,27 @@ For the context given, that of storing details of professors, no such change in 
 So an SQL type database would be most suitable for this case
 ### Models:
 * #### Professor
- * name-String
- * age   - integer
- * department - foreign key
+  * name-String
+  * age   - integer
+  * department - foreign key
 
 * #### Course
- * name - string
- * department - foreign key
- * professors - many to many field
+  * name - string
+  * department - foreign key
+  * professors - many to many field
 
 * #### Intern
- * name - string
- * department - foreign key
- * current project - foreign key
+  * name - string
+  * department - foreign key
+  * current project - foreign key
 
 * #### Department
- * name - string
+  * name - string
 
 * #### Project
- * professor - foreign key
- * description - string
- * start date - time field
+  * professor - foreign key
+  * description - string
+  * start date - time field
 
 
 
