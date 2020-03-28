@@ -1,4 +1,5 @@
 from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -13,7 +14,7 @@ from professors.models import *
 from .forms import UserForm, BanForm
 from .tokens import account_activation_token
 
-
+@login_required
 def show_user_profile(request):
     context = dict()
     if request.user.is_superuser:
@@ -88,7 +89,6 @@ class UserFormView(View):
         else:
             return render(request, self.template_name, {'form': form, 'error': 'incorrect data'})
 
-
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -104,6 +104,7 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+@user_passes_test(lambda u:u.is_superuser)
 def ban_user(request, user_id):
     user = User.objects.get(pk=user_id)
     if request.POST:
@@ -144,7 +145,7 @@ def ban_user(request, user_id):
         form = BanForm(None)
         return render(request, 'users/ban_form.html', {'form': form})
 
-
+@user_passes_test(lambda u:u.is_superuser)
 def remove_ban(request, user_id):
     user = User.objects.get(id=user_id)
     user.is_active = True
@@ -164,7 +165,7 @@ def remove_ban(request, user_id):
     user.save()
     return HttpResponseRedirect(reverse('users:show_profile'))
 
-
+@user_passes_test(lambda u:u.is_superuser)
 def warn(request, user_id):
     user = User.objects.get(id=user_id)
     warning = UserWarning.objects.create(user=user, message='U r being warned', time=datetime.now())

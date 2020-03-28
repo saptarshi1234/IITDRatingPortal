@@ -1,8 +1,11 @@
+from django.contrib.auth.decorators import *
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
+from professors.views import superuser_required, user_required
 from .forms import *
 from .models import *
 
@@ -21,18 +24,18 @@ class DetailView(generic.DetailView):
     template_name = 'courses/details.html'
     context_object_name = 'course'
 
-
+@superuser_required()
 class CourseCreate(CreateView):
     model = Course
     fields = ('name', 'department', 'profs_teaching')
 
-
+@superuser_required()
 class CourseUpdate(UpdateView):
     model = Course
     fields = ('name', 'department', 'profs_teaching')    # form_class = CourseCreateForm
 
 
-
+@user_required()
 class CourseRatingCreate(CreateView):
     model = Course_Rating
     form_class = ReviewPostForm
@@ -45,11 +48,8 @@ class CourseRatingCreate(CreateView):
         return HttpResponseRedirect(obj.get_absolute_url())
 
 
-class CourseRatingDelete(DeleteView):
-    model = Course_Rating
-    success_url = reverse_lazy('courses:index')
 
-
+@login_required
 def upvote(request, pk):
     print('obuvi')
     rating = Course_Rating.objects.get(id=pk)
@@ -64,7 +64,7 @@ def upvote(request, pk):
     print(rating.get_absolute_url())
     return HttpResponseRedirect(rating.get_absolute_url())
 
-
+@login_required
 def downvote(request, pk):
     rating = Course_Rating.objects.get(id=pk)
     if request.user not in rating.liked_by.all():
@@ -76,7 +76,7 @@ def downvote(request, pk):
     rating.save()
     return HttpResponseRedirect(rating.get_absolute_url())
 
-
+@user_passes_test(lambda u: u.is_superuser)
 def delete_rating(request, pk):
     review = Course_Rating.objects.get(id=pk)
     # if not review.postAnonymously:
@@ -87,7 +87,7 @@ def delete_rating(request, pk):
     warning = UserWarning.objects.create(user=review.user, message=warning_message, time=datetime.now())
     return HttpResponseRedirect(review.course.get_absolute_url())
 
-
+@login_required
 def report_rating(request, pk):
     rating = Course_Rating.objects.get(id=pk)
     rating.reported = True
@@ -95,7 +95,7 @@ def report_rating(request, pk):
     rating.save()
     return HttpResponseRedirect(rating.get_absolute_url())
 
-
+@user_passes_test(lambda u:u.is_superuser)
 def unmark_rating(request,pk):
     rating = Course_Rating.objects.get(id=pk)
     rating.reported = False

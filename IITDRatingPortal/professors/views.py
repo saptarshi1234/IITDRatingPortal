@@ -1,11 +1,30 @@
+from django.contrib.auth.decorators import *
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import *
 from .models import *
 
+def superuser_required():
+    def wrapper(wrapped):
+        class WrappedClass(UserPassesTestMixin, wrapped):
+            def test_func(self):
+                return self.request.user.is_superuser
+
+        return WrappedClass
+    return wrapper
+def user_required():
+    def wrapper(wrapped):
+        class WrappedClass(UserPassesTestMixin, wrapped):
+            def test_func(self):
+                return not self.request.user.is_anonymous
+
+        return WrappedClass
+    return wrapper
 
 class IndexView(generic.ListView):
     template_name = 'professors/index.html'
@@ -20,17 +39,17 @@ class DetailView(generic.DetailView):
     template_name = 'professors/details.html'
     context_object_name = 'prof'
 
-
+@superuser_required()
 class ProfCreate(CreateView):
     model = Professor
     fields = ('name', 'age', 'department')
 
-
+@superuser_required()
 class ProfUpdate(UpdateView):
     model = Professor
     fields = ('name', 'age', 'department')
 
-
+@user_required()
 class ProfRatingCreate(CreateView):
     model = Prof_Rating
     form_class = ReviewPostForm
@@ -45,11 +64,8 @@ class ProfRatingCreate(CreateView):
         return HttpResponseRedirect(obj.get_absolute_url())
 
 
-class ProfRatingDelete(DeleteView):
-    model = Prof_Rating
-    success_url = reverse_lazy('professors:index')
 
-
+@login_required
 def upvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
     if request.user in rating.liked_by.all():
@@ -62,7 +78,7 @@ def upvote(request, pk):
     return HttpResponseRedirect(rating.get_absolute_url())
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
-
+@login_required
 def downvote(request, pk):
     rating = Prof_Rating.objects.get(id=pk)
     if request.user not in rating.liked_by.all():
@@ -75,7 +91,7 @@ def downvote(request, pk):
     return HttpResponseRedirect(rating.get_absolute_url())
     # return redirect('professors:detail',kwargs={'pk':rating.professor.pk})
 
-
+@user_passes_test(lambda u:u.is_superuser)
 def delete_rating(request, pk):
     review = Prof_Rating.objects.get(id=pk)
     # if not review.postAnonymously:
@@ -86,7 +102,7 @@ def delete_rating(request, pk):
     warning = UserWarning.objects.create(user=review.user, message=warning_message, time=datetime.now())
     return HttpResponseRedirect(review.professor.get_absolute_url())
 
-
+@login_required
 def report_rating(request, pk):
     review = Prof_Rating.objects.get(id=pk)
     review.reported = True
@@ -94,7 +110,7 @@ def report_rating(request, pk):
     review.save()
     return HttpResponseRedirect(review.get_absolute_url())
 
-
+@user_passes_test(lambda u:u.is_superuser)
 def unmark_rating(request,pk):
     review = Prof_Rating.objects.get(id=pk)
     review.reported = False
